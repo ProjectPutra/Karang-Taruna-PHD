@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Kirim Email</title>
+</head>
+<body>
+    <h1>Form Kirim Email</h1>
+    <form id="emailForm">
+        <label for="fromName">Nama:</label>
+        <input type="text" id="fromName" name="from_name" required><br><br>
+
+        <label for="fromEmail">Email:</label>
+        <input type="email" id="fromEmail" name="from_email" required><br><br>
+
+        <label for="subject">Subjek:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+
+        <label for="message">Pesan:</label><br>
+        <textarea id="message" name="message" rows="4" required></textarea><br><br>
+
+        <input type="submit" value="Kirim Email">
+    </form>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        emailjs.init("OYfEVI58rCOIdSmcj"); // Ganti "your_user_id" dengan User ID EmailJS Anda
+
+        document.getElementById('emailForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const data = {
+                from_name: form.from_name.value,
+                from_email: form.from_email.value,
+                subject: form.subject.value,
+                message: form.message.value
+            };
+
+            emailjs.send("service_iqtotxi", "template_tkb2bha", data) // Ganti "your_service_id" dan "your_template_id" dengan Service ID dan Template ID EmailJS Anda
+                .then(function(response) {
+                    alert("Email berhasil terkirim!");
+                    form.reset();
+                }, function(error) {
+                    alert("Terjadi kesalahan saat mengirim email. Silakan coba lagi nanti.");
+                    console.log('Error:', error);
+                });
+        };
+    </script>
+</body>
+</html>
